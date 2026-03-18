@@ -5,7 +5,8 @@ export const USERNAME = 'standard_user';
 export const PASSWORD = 'secret_sauce';
 
 export async function login(page: Page): Promise<void> {
-  await page.goto(BASE_URL);
+  await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+  await page.locator('#user-name').waitFor({ state: 'visible' });
   await page.fill('#user-name', USERNAME);
   await page.fill('#password', PASSWORD);
   await page.click('#login-button');
